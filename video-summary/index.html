@@ -499,10 +499,34 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    .sound-toggle {
+      position: absolute;
+      right: 26px;
+      bottom: 24px;
+      z-index: 80;
+      display: none;
+      border: 1px solid rgba(0, 212, 170, 0.42);
+      border-radius: 4px;
+      background: rgba(8, 12, 24, 0.82);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      padding: 10px 13px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    .sound-toggle:hover {
+      border-color: var(--green);
+      color: var(--green2);
+    }
   </style>
 </head>
 <body>
   <div data-composition-id="parikshit-portfolio-promo" data-width="1920" data-height="1080" data-duration="20" data-start="0" data-track-index="0">
+    <audio id="sci-fi-score" src="assets/sci-fi-score.wav" data-start="0" data-duration="20" data-track-index="1" data-volume="0.28" preload="auto" loop></audio>
     <div class="glow" data-layout-ignore></div>
     <div class="grid-bg" data-layout-ignore></div>
     <div class="scanlines" data-layout-ignore></div>
@@ -628,6 +652,7 @@
     <div class="transition-panel transition-2" data-layout-ignore></div>
     <div class="transition-panel transition-3" data-layout-ignore></div>
     <div class="final-fade" data-layout-ignore></div>
+    <button class="sound-toggle" type="button" aria-label="Toggle sci-fi soundtrack">sound on</button>
 
     <script src="vendor/gsap.min.js"></script>
     <script>
@@ -677,6 +702,34 @@
 
       window.__timelines["parikshit-portfolio-promo"] = tl;
       const previewParams = new URLSearchParams(window.location.search);
+      const score = document.getElementById("sci-fi-score");
+      const soundToggle = document.querySelector(".sound-toggle");
+      const previewMode = previewParams.get("preview") === "1";
+      const embedMode = previewParams.get("embed") === "1";
+      const seekTime = Number(previewParams.get("seek")) || 0;
+      const syncScore = (time) => {
+        score.currentTime = Math.max(0, Math.min(19.8, time % 20));
+      };
+      const playScore = () => {
+        score.volume = 0.28;
+        return score.play().then(() => {
+          soundToggle.textContent = "sound off";
+        }).catch(() => {
+          soundToggle.textContent = "sound on";
+        });
+      };
+      if (previewMode || embedMode) {
+        soundToggle.style.display = "block";
+        soundToggle.addEventListener("click", () => {
+          if (score.paused) {
+            syncScore(tl.time());
+            playScore();
+          } else {
+            score.pause();
+            soundToggle.textContent = "sound on";
+          }
+        });
+      }
       if (previewParams.get("embed") === "1") {
         const root = document.querySelector('[data-composition-id="parikshit-portfolio-promo"]');
         const fitEmbeddedFrame = () => {
@@ -690,9 +743,12 @@
         window.addEventListener("resize", fitEmbeddedFrame);
       }
       if (previewParams.has("seek")) {
-        tl.seek(Number(previewParams.get("seek")) || 0).pause();
-      } else if (previewParams.get("preview") === "1") {
+        tl.seek(seekTime).pause();
+        syncScore(seekTime);
+      } else if (previewMode) {
         tl.play(0);
+        syncScore(0);
+        playScore();
       }
     </script>
   </div>
