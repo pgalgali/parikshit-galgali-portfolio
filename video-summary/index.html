@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parikshit Galgali - 20s Product Promo</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080c18;
+      --bg2: #0c1120;
+      --bg3: #101828;
+      --panel: #0f1624;
+      --border: #1a2640;
+      --border2: #223050;
+      --green: #00d4aa;
+      --green2: #00f0c0;
+      --blue: #60a5fa;
+      --purple: #a78bfa;
+      --amber: #fbbf24;
+      --red: #f87171;
+      --teal: #2dd4bf;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --text3: #4e6280;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Syne", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; background: #050812; overflow: hidden; }
+
+    [data-composition-id="parikshit-portfolio-promo"] {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      isolation: isolate;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 86px 116px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .grid-bg, .scanlines, .glow, .transition-panel, .route-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(26, 38, 64, 0.72) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 38, 64, 0.72) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.52;
+    }
+
+    .scanlines {
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 170, 0.018) 2px, rgba(0, 212, 170, 0.018) 4px);
+      z-index: 40;
+      mix-blend-mode: screen;
+    }
+
+    .glow {
+      background:
+        radial-gradient(ellipse 55% 42% at 76% 40%, rgba(0, 212, 170, 0.12), transparent 58%),
+        radial-gradient(ellipse 36% 42% at 16% 84%, rgba(96, 165, 250, 0.10), transparent 62%),
+        radial-gradient(ellipse 25% 30% at 84% 84%, rgba(167, 139, 250, 0.08), transparent 64%);
+      z-index: -1;
+    }
+
+    .terminal-label, .mono, .metric-label, .chip, .tag, .cta, .role, .eyebrow {
+      font-family: var(--mono);
+    }
+
+    .terminal-label {
+      color: var(--text3);
+      font-size: 25px;
+      letter-spacing: 0.05em;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .prompt {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .hero-name {
+      font-size: 156px;
+      line-height: 0.92;
+      letter-spacing: 0;
+      font-weight: 800;
+      max-width: 900px;
+      margin: 0;
+    }
+
+    .hero-name .green { color: var(--green); }
+    .cursor::after {
+      content: "_";
+      color: var(--green);
+      margin-left: 8px;
+    }
+
+    .role {
+      color: var(--blue);
+      font-size: 25px;
+      letter-spacing: 0.08em;
+      max-width: 1220px;
+    }
+
+    .tagline {
+      color: var(--text2);
+      font-size: 34px;
+      line-height: 1.45;
+      max-width: 1180px;
+      margin: 0;
+    }
+
+    .tagline strong { color: var(--text); font-weight: 700; }
+    .tagline .amber { color: var(--amber); }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 1180px;
+    }
+
+    .chip {
+      border: 1px solid rgba(0, 212, 170, 0.28);
+      color: var(--green);
+      background: rgba(0, 212, 170, 0.06);
+      border-radius: 4px;
+      padding: 9px 17px;
+      font-size: 19px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .chip.blue { color: var(--blue); border-color: rgba(96, 165, 250, 0.3); background: rgba(96, 165, 250, 0.07); }
+    .chip.purple { color: var(--purple); border-color: rgba(167, 139, 250, 0.3); background: rgba(167, 139, 250, 0.07); }
+    .chip.amber { color: var(--amber); border-color: rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.07); }
+
+    .node-field {
+      position: absolute;
+      right: 118px;
+      top: 135px;
+      width: 540px;
+      height: 690px;
+      opacity: 0.75;
+    }
+
+    .node {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 24px rgba(0, 212, 170, 0.75);
+    }
+
+    .node.n2 { left: 380px; top: 90px; background: var(--blue); }
+    .node.n3 { left: 130px; top: 280px; background: var(--amber); }
+    .node.n4 { left: 450px; top: 440px; background: var(--purple); }
+    .node.n5 { left: 70px; top: 560px; background: var(--teal); }
+    .node.n1 { left: 250px; top: 20px; }
+
+    .connector {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.78), transparent);
+      transform-origin: left center;
+      opacity: 0.8;
+    }
+
+    .c1 { width: 250px; left: 255px; top: 28px; transform: rotate(17deg); }
+    .c2 { width: 330px; left: 138px; top: 288px; transform: rotate(-28deg); }
+    .c3 { width: 330px; left: 76px; top: 567px; transform: rotate(-42deg); }
+    .c4 { width: 280px; left: 135px; top: 286px; transform: rotate(42deg); }
+
+    .metric-wrap {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 23px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .scene-title {
+      font-size: 70px;
+      line-height: 1.02;
+      letter-spacing: 0;
+      margin: 0 0 18px;
+      max-width: 1240px;
+    }
+
+    .metric-card {
+      min-height: 210px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(15, 22, 36, 0.96), rgba(12, 17, 32, 0.92));
+      border-radius: 8px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0.68;
+    }
+
+    .metric-num {
+      font-family: var(--mono);
+      font-size: 70px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--green);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-num.amber { color: var(--amber); }
+    .metric-num.blue { color: var(--blue); }
+
+    .metric-label {
+      color: var(--text2);
+      font-size: 21px;
+      margin-top: 18px;
+      letter-spacing: 0.03em;
+    }
+
+    .metric-note {
+      color: var(--text3);
+      font-family: var(--mono);
+      font-size: 16px;
+      margin-top: 12px;
+    }
+
+    .route-layer {
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      z-index: 2;
+    }
+
+    .arch-card {
+      min-height: 188px;
+      background: rgba(15, 22, 36, 0.94);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .arch-card.featured {
+      border-color: rgba(0, 212, 170, 0.38);
+      background: rgba(0, 212, 170, 0.045);
+    }
+
+    .cmd {
+      font-family: var(--mono);
+      color: var(--green);
+      font-size: 17px;
+      margin-bottom: 13px;
+    }
+
+    .arch-card h3 {
+      margin: 0 0 10px;
+      font-size: 29px;
+      line-height: 1.08;
+    }
+
+    .arch-card p {
+      color: var(--text2);
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.46;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-size: 14px;
+      color: var(--text3);
+      border: 1px solid var(--border2);
+      padding: 4px 8px;
+      border-radius: 3px;
+    }
+
+    .spot-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+      z-index: 3;
+    }
+
+    .spot {
+      border: 1px solid rgba(0, 212, 170, 0.28);
+      background: rgba(0, 212, 170, 0.04);
+      padding: 15px 16px;
+      border-radius: 6px;
+      min-height: 94px;
+    }
+
+    .spot .period {
+      font-family: var(--mono);
+      color: var(--blue);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .spot .proof {
+      font-family: var(--mono);
+      color: var(--green);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .terminal {
+      width: 1230px;
+      max-width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+      z-index: 4;
+    }
+
+    .term-bar {
+      height: 54px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 22px;
+    }
+
+    .dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .term-title {
+      font-family: var(--mono);
+      color: var(--text3);
+      margin-left: 9px;
+      font-size: 17px;
+    }
+
+    .term-body {
+      padding: 34px 42px 38px;
+      font-family: var(--mono);
+      font-size: 24px;
+      line-height: 1.58;
+    }
+
+    .json-row {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .key { color: var(--blue); }
+    .str { color: var(--purple); }
+    .num { color: var(--amber); }
+    .bool { color: var(--green); }
+    .comment { color: var(--text3); }
+
+    .close-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .cta-block {
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .cta-title {
+      font-size: 68px;
+      line-height: 1.02;
+      margin: 0;
+      max-width: 620px;
+    }
+
+    .cta-copy {
+      color: var(--text2);
+      font-size: 28px;
+      line-height: 1.45;
+      margin: 0;
+      max-width: 610px;
+    }
+
+    .cta {
+      font-size: 24px;
+      letter-spacing: 0.05em;
+      padding: 20px 33px;
+      border-radius: 5px;
+      background: var(--green);
+      color: var(--bg);
+      font-weight: 700;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      color: var(--green);
+      font-size: 20px;
+    }
+
+    .status-light {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 20px rgba(0, 212, 170, 0.9);
+    }
+
+    .ghost-name {
+      position: absolute;
+      right: 80px;
+      bottom: 20px;
+      font-family: var(--sans);
+      font-size: 170px;
+      font-weight: 800;
+      line-height: 0.9;
+      color: rgba(226, 232, 240, 0.035);
+      text-align: right;
+      z-index: 1;
+    }
+
+    .ghost-name span {
+      display: block;
+    }
+
+    .transition-panel {
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.22), var(--bg2), rgba(96, 165, 250, 0.20), transparent);
+      transform: translateX(-115%);
+      z-index: 30;
+      filter: blur(0.2px);
+    }
+
+    .final-fade {
+      position: absolute;
+      inset: 0;
+      background: #050812;
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div data-composition-id="parikshit-portfolio-promo" data-width="1920" data-height="1080" data-duration="20" data-start="0" data-track-index="0">
+    <div class="glow" data-layout-ignore></div>
+    <div class="grid-bg" data-layout-ignore></div>
+    <div class="scanlines" data-layout-ignore></div>
+
+    <section class="scene scene-1">
+      <div class="node-field" data-layout-ignore>
+        <div class="connector c1"></div>
+        <div class="connector c2"></div>
+        <div class="connector c3"></div>
+        <div class="connector c4"></div>
+        <div class="node n1"></div>
+        <div class="node n2"></div>
+        <div class="node n3"></div>
+        <div class="node n4"></div>
+        <div class="node n5"></div>
+      </div>
+      <div class="terminal-label"><span class="prompt">></span><span>parikshit@hsbc:~$ cat whoami.json</span></div>
+      <h1 class="hero-name"><span>Parikshit</span> <span class="green cursor">Galgali</span></h1>
+      <div class="role">[ Senior Associate Director · Enterprise Architecture & Digital Banking Technology ]</div>
+      <p class="tagline">Enterprise architecture is <strong>measurable business movement</strong> across cloud, regulatory data, and resilient digital banking platforms.</p>
+      <div class="chip-row">
+        <span class="chip">Apache Kafka</span>
+        <span class="chip blue">AWS · GCP · K8s</span>
+        <span class="chip purple">MongoDB · CQRS</span>
+        <span class="chip amber">Capital Markets</span>
+        <span class="chip">Event-Driven Architecture</span>
+      </div>
+    </section>
+
+    <section class="scene scene-2">
+      <div class="eyebrow">// quantified leadership</div>
+      <h2 class="scene-title">Senior architecture outcomes, shown like operating telemetry.</h2>
+      <div class="metric-wrap">
+        <div class="metric-card"><div class="metric-num" data-target="18">18+</div><div class="metric-label">industry experience</div><div class="metric-note">digital banking technology</div></div>
+        <div class="metric-card"><div class="metric-num blue" data-target="25">25+</div><div class="metric-label">engineers led</div><div class="metric-note">HSBC Global Banking & Markets</div></div>
+        <div class="metric-card"><div class="metric-num amber" data-target="2">$2M+</div><div class="metric-label">P&L accountability</div><div class="metric-note">delivered within budget</div></div>
+        <div class="metric-card"><div class="metric-num amber" data-target="30">30%+</div><div class="metric-label">infra cost reduction</div><div class="metric-note">cloud-native modernisation</div></div>
+        <div class="metric-card"><div class="metric-num" data-target="99.99">99.99%</div><div class="metric-label">tier-1 SLA achieved</div><div class="metric-note">regulatory systems</div></div>
+        <div class="metric-card"><div class="metric-num blue" data-target="7">7+</div><div class="metric-label">cloud programs</div><div class="metric-note">AWS, GCP, Kubernetes</div></div>
+      </div>
+    </section>
+
+    <section class="scene scene-3">
+      <svg class="route-layer" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true">
+        <path class="route r1" d="M300 302 C570 210, 770 330, 980 246 S1400 240, 1620 335" fill="none" stroke="#00d4aa" stroke-width="3" stroke-dasharray="12 18"/>
+        <path class="route r2" d="M255 585 C620 520, 875 715, 1210 625 S1460 520, 1690 750" fill="none" stroke="#60a5fa" stroke-width="3" stroke-dasharray="10 16"/>
+        <path class="route r3" d="M455 790 C680 650, 940 495, 1240 420 S1520 420, 1710 265" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="8 14"/>
+      </svg>
+      <div class="eyebrow">// architecture in motion</div>
+      <div class="cards-grid">
+        <article class="arch-card featured">
+          <div class="cmd">$ describe --domain cloud-native</div>
+          <h3>Cloud-Native Platforms</h3>
+          <p>7+ migrations from legacy monoliths to Kubernetes microservices.</p>
+          <div class="tag-row"><span class="tag">AWS</span><span class="tag">GCP/GKE</span><span class="tag">Terraform</span></div>
+        </article>
+        <article class="arch-card">
+          <div class="cmd">$ describe --domain regulatory-tech</div>
+          <h3>Regulatory Technology</h3>
+          <p>Compliance latency moved from T+2 to near real-time reporting.</p>
+          <div class="tag-row"><span class="tag">Debezium CDC</span><span class="tag">Snowflake</span><span class="tag">BigQuery</span></div>
+        </article>
+        <article class="arch-card">
+          <div class="cmd">$ describe --domain event-driven</div>
+          <h3>Event-Driven Architecture</h3>
+          <p>CQRS patterns for high-throughput FX and rates workflows.</p>
+          <div class="tag-row"><span class="tag">Kafka</span><span class="tag">MongoDB</span><span class="tag">Event Sourcing</span></div>
+        </article>
+        <article class="arch-card">
+          <div class="cmd">$ describe --domain resilience</div>
+          <h3>Operational Resilience</h3>
+          <p>Enterprise BC/DR posture with 100% RTO compliance for P1 systems.</p>
+          <div class="tag-row"><span class="tag">Risk Governance</span><span class="tag">RTO/RPO</span></div>
+        </article>
+        <article class="arch-card featured">
+          <div class="cmd">$ describe --domain data-architecture</div>
+          <h3>Data Architecture</h3>
+          <p>Starburst/Trino regulatory data lake with 60%+ query uplift.</p>
+          <div class="tag-row"><span class="tag">Data Mesh</span><span class="tag">Starburst</span><span class="tag">Parquet</span></div>
+        </article>
+        <article class="arch-card">
+          <div class="cmd">$ describe --domain leadership</div>
+          <h3>Engineering Leadership</h3>
+          <p>Communities of practice scaled across three geographies.</p>
+          <div class="tag-row"><span class="tag">SAFe</span><span class="tag">P&L</span><span class="tag">Governance</span></div>
+        </article>
+      </div>
+      <div class="spot-strip">
+        <div class="spot"><div class="period">2022-2024 · HSBC</div><div class="proof">India Data Localisation: zero RBI findings</div></div>
+        <div class="spot"><div class="period">2021-2023 · HSBC</div><div class="proof">Regulatory Data Lake: 60%+ query uplift</div></div>
+        <div class="spot"><div class="period">2022-2023 · HSBC</div><div class="proof">CQRS Treasury API: reference pattern</div></div>
+        <div class="spot"><div class="period">2021-present · HSBC</div><div class="proof">Operational Resilience: 100% RTO</div></div>
+      </div>
+    </section>
+
+    <section class="scene scene-4">
+      <div class="ghost-name" data-layout-ignore><span>Parikshit</span><span>Galgali</span></div>
+      <div class="close-grid">
+        <div class="terminal">
+          <div class="term-bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">parikshit_galgali.json</span></div>
+          <div class="term-body">
+            <span class="json-row"><span class="comment">// executive architecture profile</span></span>
+            <span class="json-row">{</span>
+            <span class="json-row">&nbsp;&nbsp;<span class="key">"title"</span>: <span class="str">"Senior Associate Director"</span>,</span>
+            <span class="json-row">&nbsp;&nbsp;<span class="key">"employer"</span>: <span class="str">"HSBC Global Banking & Markets"</span>,</span>
+            <span class="json-row">&nbsp;&nbsp;<span class="key">"certifications"</span>: [<span class="str">"GCP"</span>, <span class="str">"AWS"</span>, <span class="str">"PMP"</span>],</span>
+            <span class="json-row">&nbsp;&nbsp;<span class="key">"team_size"</span>: <span class="num">25</span>, <span class="key">"sla"</span>: <span class="str">"99.99%"</span>,</span>
+            <span class="json-row">&nbsp;&nbsp;<span class="key">"open_to"</span>: [<span class="str">"Director roles"</span>, <span class="str">"consulting"</span>, <span class="str">"speaking"</span>],</span>
+            <span class="json-row">&nbsp;&nbsp;<span class="key">"status"</span>: <span class="bool">true</span> <span class="comment">// available</span></span>
+            <span class="json-row">}</span>
+          </div>
+        </div>
+        <div class="cta-block">
+          <div class="status"><span class="status-light"></span><span>open to opportunities</span></div>
+          <h2 class="cta-title">Build resilient banking platforms.</h2>
+          <p class="cta-copy">Director-level architecture, digital banking transformation, and enterprise systems leadership.</p>
+          <div class="cta">-> get in touch</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="transition-panel transition-1" data-layout-ignore></div>
+    <div class="transition-panel transition-2" data-layout-ignore></div>
+    <div class="transition-panel transition-3" data-layout-ignore></div>
+    <div class="final-fade" data-layout-ignore></div>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.set(".scene-1", { opacity: 1 }, 0);
+      tl.from(".scene-1 .terminal-label", { y: 24, opacity: 0, duration: 0.55, ease: "power3.out" }, 0.2);
+      tl.from(".scene-1 .hero-name", { y: 58, opacity: 0, filter: "blur(12px)", duration: 0.75, ease: "expo.out" }, 0.55);
+      tl.from(".scene-1 .role", { x: -38, opacity: 0, duration: 0.55, ease: "back.out(1.4)" }, 1.05);
+      tl.from(".scene-1 .tagline", { y: 32, opacity: 0, duration: 0.56, ease: "power2.out" }, 1.34);
+      tl.from(".scene-1 .chip", { y: 22, scale: 0.92, opacity: 0, duration: 0.42, stagger: 0.07, ease: "back.out(1.8)" }, 1.74);
+      tl.from(".scene-1 .node", { scale: 0, opacity: 0, duration: 0.48, stagger: 0.08, ease: "elastic.out(1, 0.6)" }, 0.9);
+      tl.from(".scene-1 .connector", { scaleX: 0, opacity: 0, duration: 0.7, stagger: 0.09, ease: "power2.out" }, 1.38);
+      tl.to(".grid-bg", { x: 48, y: -48, duration: 20, ease: "none" }, 0);
+
+      tl.to(".transition-1", { x: "115%", duration: 0.5, ease: "power3.inOut" }, 4.55);
+      tl.set(".scene-2", { opacity: 1 }, 4.82);
+      tl.set(".scene-1", { opacity: 0 }, 5.08);
+      tl.from(".scene-2 .eyebrow", { y: 26, opacity: 0, duration: 0.45, ease: "power2.out" }, 5.06);
+      tl.from(".scene-2 .scene-title", { y: 34, opacity: 0, filter: "blur(8px)", duration: 0.58, ease: "expo.out" }, 5.22);
+      tl.from(".scene-2 .metric-card", { y: 62, rotationX: -14, opacity: 0, duration: 0.64, stagger: 0.09, ease: "back.out(1.4)" }, 5.62);
+      tl.from(".scene-2 .metric-num", { textShadow: "0 0 0 rgba(0,212,170,0)", scale: 0.82, duration: 0.42, stagger: 0.07, ease: "power4.out" }, 6.1);
+      tl.from(".scene-2 .metric-label, .scene-2 .metric-note", { opacity: 0, y: 12, duration: 0.35, stagger: 0.035, ease: "power2.out" }, 6.36);
+
+      tl.to(".transition-2", { x: "115%", duration: 0.44, ease: "power3.inOut" }, 9.58);
+      tl.set(".scene-3", { opacity: 1 }, 9.82);
+      tl.set(".scene-2", { opacity: 0 }, 10.05);
+      tl.from(".scene-3 .eyebrow", { x: -50, opacity: 0, duration: 0.44, ease: "power2.out" }, 10.05);
+      tl.from(".scene-3 .arch-card", { x: -76, y: 26, opacity: 0, filter: "blur(8px)", duration: 0.58, stagger: 0.08, ease: "expo.out" }, 10.26);
+      tl.from(".scene-3 .tag", { scale: 0.7, opacity: 0, duration: 0.28, stagger: 0.018, ease: "back.out(2)" }, 10.86);
+      tl.from(".scene-3 .route", { strokeDashoffset: 240, opacity: 0, duration: 1.05, stagger: 0.12, ease: "power2.out" }, 10.78);
+      tl.from(".scene-3 .spot", { y: 42, opacity: 0, duration: 0.48, stagger: 0.08, ease: "back.out(1.5)" }, 11.38);
+
+      tl.to(".transition-3", { x: "115%", duration: 0.5, ease: "power3.inOut" }, 14.55);
+      tl.set(".scene-4", { opacity: 1 }, 14.82);
+      tl.set(".scene-3", { opacity: 0 }, 15.08);
+      tl.from(".scene-4 .terminal", { y: 68, opacity: 0, filter: "blur(9px)", duration: 0.68, ease: "expo.out" }, 15.1);
+      tl.from(".scene-4 .json-row", { x: -24, opacity: 0, duration: 0.31, stagger: 0.055, ease: "power2.out" }, 15.48);
+      tl.from(".scene-4 .status", { y: 22, opacity: 0, duration: 0.45, ease: "back.out(1.5)" }, 15.62);
+      tl.from(".scene-4 .cta-title", { y: 42, opacity: 0, duration: 0.55, ease: "power3.out" }, 15.88);
+      tl.from(".scene-4 .cta-copy", { y: 28, opacity: 0, duration: 0.45, ease: "power2.out" }, 16.22);
+      tl.from(".scene-4 .cta", { scale: 0.88, opacity: 0, duration: 0.42, ease: "back.out(1.9)" }, 16.58);
+      tl.from(".scene-4 .ghost-name", { opacity: 0, x: 42, duration: 0.85, ease: "power2.out" }, 15.24);
+      tl.to(".scene-4 .status-light", { scale: 1.45, duration: 0.34, repeat: 5, yoyo: true, ease: "sine.inOut" }, 16.9);
+      tl.to(".final-fade", { opacity: 0.18, duration: 0.5, ease: "power2.in" }, 19.5);
+
+      window.__timelines["parikshit-portfolio-promo"] = tl;
+      const previewParams = new URLSearchParams(window.location.search);
+      if (previewParams.get("embed") === "1") {
+        const root = document.querySelector('[data-composition-id="parikshit-portfolio-promo"]');
+        const fitEmbeddedFrame = () => {
+          const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+          root.style.transform = `scale(${scale})`;
+          root.style.transformOrigin = "top left";
+          document.body.style.width = `${1920 * scale}px`;
+          document.body.style.height = `${1080 * scale}px`;
+        };
+        fitEmbeddedFrame();
+        window.addEventListener("resize", fitEmbeddedFrame);
+      }
+      if (previewParams.has("seek")) {
+        tl.seek(Number(previewParams.get("seek")) || 0).pause();
+      } else if (previewParams.get("preview") === "1") {
+        tl.play(0);
+      }
+    </script>
+  </div>
+</body>
+</html>
